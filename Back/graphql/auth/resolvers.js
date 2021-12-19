@@ -1,5 +1,7 @@
 import { UserModel } from '../../models/usuario/usuario.js';
 import bcrypt from 'bcrypt';
+import { generateToken } from '../../utils/tokenUtils.js';
+
 
 
 
@@ -46,6 +48,32 @@ const resolversAutenticacion = {
           };
         }
     },
+    refreshToken: async (parent, args, context) => {
+      console.log('contexto', context);
+      if (!context.userData) {
+        return {
+          error: 'token no valido',
+        };
+      } else {
+        return {
+          token: generateToken({
+            _id: context.userData._id,
+            nombre: context.userData.nombre,
+            apellido: context.userData.apellido,
+            identificacion: context.userData.identificacion,
+            correo: context.userData.correo,
+            rol: context.userData.rol,
+            foto: context.userData.foto,
+          }),
+        };
+      }
+      // valdiar que el contexto tenga info del usuario. si si, refrescar el token
+      // si no devolver null para que en el front redirija al login.
+    },
+    
+
+
+
   }, 
 };
 

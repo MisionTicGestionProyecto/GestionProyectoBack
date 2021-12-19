@@ -20,8 +20,10 @@ type Mutation{
 
     login(
     correo: String!, 
-    password: String!
+    password: String! 
     ): Token
+
+    refreshToken: Token
 }
 `;
  export{tiposAutenticacion};
