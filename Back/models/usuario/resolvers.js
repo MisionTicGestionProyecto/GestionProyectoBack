@@ -4,9 +4,14 @@ import { InscriptionModel } from '../inscripcion/inscripcion.js';
 
 
 const resolversUsuario = {
+    Usuario: {
+        inscripciones: async (parent, args, context) => {
+          return InscriptionModel.find({ estudiante: parent._id });
+        },
+      },
     Query:{
-        Usuarios: async (parent, args) => {
-            const usuarios =  await UserModel.find().populate('inscripciones').populate('proyectosLiderados').populate('avancesCreados');   //trae los usuarios de la base de datos
+        Usuarios: async (parent, args, context) => {
+            const usuarios = await UserModel.find({ ...args.filtro });
             return usuarios;
     },
         Usuario: async (parent, args) => {
