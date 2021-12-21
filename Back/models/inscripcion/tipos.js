@@ -23,11 +23,11 @@ const tiposInscripcion = gql`
     ): Inscripcion
 
     aprobarInscripcion(
-      id: String!
+      _id: String!
     ): Inscripcion
 
     eliminarInscripcion(
-      _id: String,
+      _id: String!,
     ): Inscripcion
 
   editarInscripcion(

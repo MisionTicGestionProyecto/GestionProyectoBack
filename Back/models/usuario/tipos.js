@@ -11,6 +11,7 @@ type Usuario {
     correo: String!
     estado: Enum_EstadoUsuario
     rol: Enum_Rol!
+    foto: String
     inscripciones: [Inscripcion]
     proyectosLiderados: [Proyecto]
     avancesCreados: [Avance]
@@ -24,6 +25,8 @@ type Usuario {
   }
 
   input CamposEditarPerfil {
+    
+    name: String
     nombre: String
     apellido: String
     identificacion: String
@@ -48,7 +51,7 @@ type Mutation{
     ): Usuario
 
     eliminarUsuario(
-        _id: String,
+        _id: String!,
         correo: String
     ): Usuario
 

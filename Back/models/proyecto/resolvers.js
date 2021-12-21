@@ -40,38 +40,30 @@ const resolversProyecto = {
             presupuesto: args.presupuesto,
             fechaInicio: args.fechaInicio,
             fechaFin: args.fechaFin,
-            estado: args.estado,
-            fase: args.fase,
             lider: args.lider,
             objetivos: args.objetivos,
             });
             return proyectoCreado;
         },
 
-        eliminarProyecto: async (parent, args) => {
-    if (Object.keys(args).includes('_id')){
-        const proyectoEliminado = await ProjectModel.findOneAndDelete({_id: args._id});
-        return proyectoEliminado;
-    } else if (Object.keys(args).includes('nombre')){
-        const proyectoEliminado = await ProjectModel.findOneAndDelete({nombre: args.nombre});
-            return proyectoEliminado;
-    }
-},
+//         eliminarProyecto: async (parent, args) => {
+//     if (Object.keys(args).includes('_id')){
+//         const proyectoEliminado = await ProjectModel.findOneAndDelete({_id: args._id});
+//         return proyectoEliminado;
+//     } else if (Object.keys(args).includes('nombre')){
+//         const proyectoEliminado = await ProjectModel.findOneAndDelete({nombre: args.nombre});
+//             return proyectoEliminado;
+//     }
+// },
 
-        editarProyecto: async (parent, args) => {
-            const proyectoEditado = await ProjectModel.findByIdAndUpdate(args._id, {
-                nombre: args.nombre,
-                presupuesto: args.presupuesto,
-                fechaInicio: args.fechaInicio,
-                fechaFin: args.fechaFin,
-                estado: args.estado,
-                fase: args.fase,
-                lider: args.lider,
-                objetivos: args.objetivos,
-    },
+editarProyecto: async (parent, args) => {
+  const proyectoEditado = await ProjectModel.findByIdAndUpdate(
+    args._id,
+    { ...args.campos },
     { new: true }
-    );
-        return proyectoEditado;
+  );
+
+  return proyectoEditado;
 },  
 crearObjetivo: async (parent, args) => {
     const proyectoConObjetivo = await ProjectModel.findByIdAndUpdate(
